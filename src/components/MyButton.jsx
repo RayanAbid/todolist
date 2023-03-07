@@ -1,16 +1,9 @@
 import React from "react";
 
-function MyButton({ text, onClick, color }) {
+function MyButton({ text, onClick, color, style }) {
   return (
     <button
-      style={
-        color
-          ? {
-              backgroundColor: color,
-              color: "white",
-            }
-          : {}
-      }
+      style={style ? style : {}}
       className="btnMain"
       onClick={(e) => {
         e.preventDefault();

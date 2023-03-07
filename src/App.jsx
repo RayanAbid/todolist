@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import "./App.css";
 import ListItem from "./components/ListItem";
@@ -12,11 +12,27 @@ function App() {
   const [isEdit, setIsEdit] = useState(false);
   const [editIndex, setEditIndex] = useState(-1);
 
+  useEffect(() => {
+    getLocalVals();
+  }, []);
+
+  const getLocalVals = async () => {
+    var storedItems = await JSON.parse(localStorage.getItem("items"));
+    if (storedItems != null) {
+      setList(storedItems);
+    }
+  };
+  const saveLocally = async (arr) => {
+    console.log("katysudyte", arr);
+    await localStorage.setItem("items", JSON.stringify(arr));
+  };
+
   const onDel = (e, index) => {
     e.preventDefault();
     var arr = [...list];
     arr.splice(index, 1);
     setList(arr);
+    saveLocally(arr);
   };
 
   const onAdd = (e) => {
@@ -29,6 +45,7 @@ function App() {
     });
     setText("");
     setList(arr);
+    saveLocally(arr);
   };
 
   const onEdit = (e) => {
@@ -39,15 +56,28 @@ function App() {
     setIsEdit(false);
 
     setList(arr);
+    saveLocally(arr);
   };
 
   return (
     <div className="App">
-      <div className="heroSection"></div>
+      <div className="heroSection">
+        <h2 className="headingText">My Todolist</h2>
+        <p className="headingPara">A simple todolist using React Js</p>
+      </div>
       <div className="listContainer">
-        <input value={text} onChange={(e) => setText(e.target.value)} />
+        <input
+          className="inputMain "
+          value={text}
+          placeholder="Enter Task"
+          onChange={(e) => setText(e.target.value)}
+        />
 
         <MyButton
+          style={{
+            borderTopLeftRadius: 0,
+            borderBottomLeftRadius: 0,
+          }}
           text={isEdit ? "Edit Item" : "Add Item"}
           onClick={(e) => {
             if (!isEdit) {
@@ -57,6 +87,22 @@ function App() {
             }
           }}
         />
+        {isEdit && (
+          <MyButton
+            style={{
+              // borderTopLeftRadius: 0,
+              // borderBottomLeftRadius: 0,
+              backgroundColor: "#f12711",
+              marginLeft: 10,
+            }}
+            text={"Cancel"}
+            onClick={(e) => {
+              setIsEdit(false);
+              setText("");
+              setEditIndex(-1);
+            }}
+          />
+        )}
       </div>
 
       <div className="listMainContainer">
@@ -80,6 +126,9 @@ function App() {
                 }}
                 setIsEdit={(e) => {
                   setIsEdit(e);
+                }}
+                saveLocally={(e) => {
+                  saveLocally(e);
                 }}
               />
             ))

@@ -10,6 +10,7 @@ function ListItem({
   setEditIndex,
   setIsEdit,
   list,
+  saveLocally,
 }) {
   return (
     <div key={item?.id} className="itemContainer">
@@ -19,14 +20,15 @@ function ListItem({
             var arr = [...list];
             arr[index].isChecked = false;
             setList(arr);
+            saveLocally(arr);
           } else {
             var arr = [...list];
             arr[index].isChecked = true;
             setList(arr);
+            saveLocally(arr);
           }
-          console.log("testing", item);
         }}
-        className={"ml10"}
+        className={"ml10 "}
         defaultChecked={item?.isChecked}
         type={"checkbox"}
       />
@@ -42,6 +44,10 @@ function ListItem({
       <span className={"ml10"} />
       <MyButton
         text={"Edit me"}
+        style={{
+          color: "white",
+          backgroundColor: "#1da1f2",
+        }}
         onClick={(e) => {
           e.preventDefault();
           setText(item?.text);
@@ -52,7 +58,10 @@ function ListItem({
       <span className={"ml10"} />
 
       <MyButton
-        color="#f12711"
+        style={{
+          color: "white",
+          backgroundColor: "#f12711",
+        }}
         text={"Del me"}
         onClick={(e) => {
           onDel(e);

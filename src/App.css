@@ -3,6 +3,8 @@ html {
   margin: 0;
   padding: 0;
   background: linear-gradient(to left, #f12711 0%, #f5af19 100%);
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
 
 .heroSection {
@@ -25,10 +27,33 @@ html {
 }
 
 .listMainContainer {
-  display: flex;
   background-color: whitesmoke;
-  height: 70vh;
+  height: 100vh;
+  text-align: center;
+}
+
+.inputMain {
+  background: #f5af19;
+  color: white;
+  border-color: transparent;
+  border-right-color: #f12711;
+  border-radius: 40px;
+  padding: 5px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.headingText {
+  display: flex;
   justify-content: center;
+  color: white;
+  font-size: 40px;
+}
+.headingPara {
+  display: flex;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
 }
 
 .itemContainer {
